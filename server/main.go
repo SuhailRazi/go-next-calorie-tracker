@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/SuhailRazi/go-next-calorie-tracker/routes"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -21,14 +22,14 @@ func main() {
 	router.Use(gin.Logger())
 	router.Use(cors.Default())
 
-	router.POST("entry/create")
-	router.GET("/entries")
-	router.GET("/entries/:id")
-	router.GET("/ingredient/:ingredient")
+	router.POST("/entry/create", routes.AddEntry)
+	router.GET("/entries", routes.GetEntries)
+	router.GET("/entry/:id", routes.GetEntryById)
+	router.GET("/ingredient/:ingredient", routes.GetEntriesByIngredients)
 
-	router.PUT("/entry/update/:id")
-	router.PUT("/ingredient/update/:id")
-	router.DELETE("/entry/delete/:id")
+	router.PUT("/entry/update/:id", routes.UpdateEntry)
+	router.PUT("/ingredient/update/:id", routes.UpdateIngredient)
+	router.DELETE("/entry/delete/:id", routes.DeleteEntry)
 
 	router.Run(":" + port)
 
